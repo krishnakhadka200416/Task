@@ -1,7 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Text, Button, TouchableOpacity } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, Button, TouchableOpacity } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Group_List from '../Components/Group_List';
+import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 
 const DATA = [
   {
@@ -16,31 +19,37 @@ const DATA = [
     id: '58694a0f-3da1-471f-bd96-145571e29d721',
     title: 'Group 3',
   },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d7221',
-    title: 'Group 4',
-  },
+ 
 
 ]; 
 
 const Groups = (props) => {
   const {navigation} = props;
   return (
-    <View size={styles.container} >
+    <View style={styles.container}>
+         <ScrollView >
         <Group_List Data = {DATA}/>
-        <TouchableOpacity  onPress={() => navigation.navigate('CreateGroup')}><Text >Create Group</Text></TouchableOpacity>
+            
+        </ScrollView>
+
+        <ActionButton  offsetY={30} buttonColor="rgba(231,76,60,1)">
+          <ActionButton.Item buttonColor='#9b59b6' title="New Group" onPress={() => navigation.navigate('CreateGroup')}>
+            <Icon name="md-create" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+        </ActionButton>
     </View>
+ 
   );
 }
 
-
-
-
 const styles = StyleSheet.create({
   container: {
-      flex:1,
-      alignItems:"center"
-  }
+    flex:1,
+  },
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
+  },
 });
-
 export default Groups;

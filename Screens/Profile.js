@@ -1,15 +1,25 @@
-import React from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Text, Image, Touchable } from 'react-native';
+import { Auth } from 'aws-amplify';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
 
 const  Profile = (props) => {
-  return (
-    <View style={styles.container}>
-      
-        <Text>Krishna Khadka</Text>
+    const [userName, setuserName] = useState('krishna');
     
-       
-   
-     
+    
+     useEffect(() =>{
+        const getMyId = async () => {
+            const userInfo = await Auth.currentAuthenticatedUser();
+            setuserName(userInfo.username);
+          }
+        getMyId();
+     },[])
+      
+   return (
+    <View style={styles.container}>
+        <Text>Hello, {userName}</Text>  
+        <TouchableOpacity onPress={()=>{Auth.signOut()}}><Text>Signout</Text></TouchableOpacity>
     </View>
   );
 }
