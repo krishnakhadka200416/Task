@@ -7,7 +7,6 @@ type User @model @auth(rules: [{ allow: owner }, { allow: private, operations: [
 }
 
 
-
 type Group @model @auth(rules: [{ allow: owner }, { allow: private, operations: [read, update, create] }])
 {
   id: ID!
@@ -28,6 +27,7 @@ type Task @model @auth(rules: [{ allow: owner }, { allow: private, operations: [
   description: String
   Group: Group @connection (name:"TaskGroup")
   assigned_user: User @connection (name:"UserTask")
+  assigned_by: String 
   comments: [Comment] @connection (name:"TaskComment")
   assign_status: Boolean
   isComplete: Boolean

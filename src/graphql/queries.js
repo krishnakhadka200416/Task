@@ -12,6 +12,7 @@ export const getUser = /* GraphQL */ `
           id
           title
           description
+          assigned_by
           assign_status
           isComplete
           completeBy
@@ -80,6 +81,7 @@ export const getGroup = /* GraphQL */ `
           id
           title
           description
+          assigned_by
           assign_status
           isComplete
           completeBy
@@ -152,6 +154,7 @@ export const getTask = /* GraphQL */ `
         updatedAt
         owner
       }
+      assigned_by
       comments {
         items {
           id
@@ -197,6 +200,7 @@ export const listTasks = /* GraphQL */ `
           updatedAt
           owner
         }
+        assigned_by
         comments {
           nextToken
         }
@@ -235,6 +239,7 @@ export const getComment = /* GraphQL */ `
           updatedAt
           owner
         }
+        assigned_by
         comments {
           nextToken
         }
@@ -265,6 +270,7 @@ export const listComments = /* GraphQL */ `
           id
           title
           description
+          assigned_by
           assign_status
           isComplete
           completeBy

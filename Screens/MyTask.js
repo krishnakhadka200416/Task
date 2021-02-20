@@ -1,13 +1,14 @@
 import React from 'react';
 import { View, ScrollView, StyleSheet,Text } from 'react-native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { API, graphqlOperation } from 'aws-amplify';
 import Task_list from '../Components/Task_list';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { listTasks }  from '../src/graphql/queries';
+import {useEffect, useState} from "react";
 
-
-
+/*
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -45,13 +46,30 @@ const DATA = [
 
  
 ];
-
+*/
 const MyTask =(props) => {
   const {navigation} = props;
+  const [tasks, setTasks] = useState([]);
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const usersData = await API.graphql(
+          graphqlOperation(
+            listTasks, {filter: {assigned_by: {eq: "6fa8bc66-948a-4d91-8911-eb21d582df47"}}}
+          )
+        )
+        setTasks(usersData.data.listTasks.items);
+        console.log(usersData.data.listTasks.items);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    fetchTasks();
+  }, [])
   return (
     <View style={styles.container}>
          <ScrollView >
-        <Task_list Data = {DATA}/>
+        <Task_list Data = {tasks}/>
             
         </ScrollView>
 

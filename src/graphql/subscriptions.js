@@ -12,6 +12,7 @@ export const onCreateUser = /* GraphQL */ `
           id
           title
           description
+          assigned_by
           assign_status
           isComplete
           completeBy
@@ -47,6 +48,7 @@ export const onUpdateUser = /* GraphQL */ `
           id
           title
           description
+          assigned_by
           assign_status
           isComplete
           completeBy
@@ -82,6 +84,7 @@ export const onDeleteUser = /* GraphQL */ `
           id
           title
           description
+          assigned_by
           assign_status
           isComplete
           completeBy
@@ -125,6 +128,7 @@ export const onCreateGroup = /* GraphQL */ `
           id
           title
           description
+          assigned_by
           assign_status
           isComplete
           completeBy
@@ -159,6 +163,7 @@ export const onUpdateGroup = /* GraphQL */ `
           id
           title
           description
+          assigned_by
           assign_status
           isComplete
           completeBy
@@ -193,6 +198,7 @@ export const onDeleteGroup = /* GraphQL */ `
           id
           title
           description
+          assigned_by
           assign_status
           isComplete
           completeBy
@@ -352,6 +358,7 @@ export const onCreateTask = /* GraphQL */ `
         updatedAt
         owner
       }
+      assigned_by
       comments {
         items {
           id
@@ -404,6 +411,7 @@ export const onUpdateTask = /* GraphQL */ `
         updatedAt
         owner
       }
+      assigned_by
       comments {
         items {
           id
@@ -456,6 +464,7 @@ export const onDeleteTask = /* GraphQL */ `
         updatedAt
         owner
       }
+      assigned_by
       comments {
         items {
           id
@@ -499,6 +508,7 @@ export const onCreateComment = /* GraphQL */ `
           updatedAt
           owner
         }
+        assigned_by
         comments {
           nextToken
         }
@@ -539,6 +549,7 @@ export const onUpdateComment = /* GraphQL */ `
           updatedAt
           owner
         }
+        assigned_by
         comments {
           nextToken
         }
@@ -579,6 +590,7 @@ export const onDeleteComment = /* GraphQL */ `
           updatedAt
           owner
         }
+        assigned_by
         comments {
           nextToken
         }

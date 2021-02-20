@@ -5,14 +5,14 @@ const Item = (props) => (
     <View style={styles.item}>
       <Text style={styles.title}>{props.title}</Text>
       <Text>{props.date}</Text>
-      <Text>{props.assignedby}</Text>
+      
     </View>
   );
 
   
 const Task_list = (props) => {
     const renderItem = ({ item }) => (
-        <Item title={item.title} date ={item.date} assignedby={item.assignedby}/>
+        <Item title={item.title} date ={item.completeBy} />
       );
   return (
         <FlatList
