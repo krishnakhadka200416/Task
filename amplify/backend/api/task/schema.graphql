@@ -1,0 +1,43 @@
+type User @model @auth(rules: [{ allow: owner }, { allow: private, operations: [read] }]) {
+  id: ID!
+  username: String!
+  fullname: String
+  tasks: [Task] @connection (name:"UserTask")
+  group: [UserGroups] @connection (name:"UserGroup")
+}
+
+
+
+type Group @model @auth(rules: [{ allow: owner }, { allow: private, operations: [read, update, create] }])
+{
+  id: ID!
+  group_name: String!
+  user: [UserGroups] @connection (name:"GroupUser")
+  tasks: [Task] @connection (name:"TaskGroup")
+}
+
+type UserGroups @model (queries:null)@auth(rules: [{ allow: owner }]) {
+  id: ID!
+  user: User @connection(name:"UserGroup")
+  group: Group @connection (name:"GroupUser")
+}
+
+type Task @model @auth(rules: [{ allow: owner }, { allow: private, operations: [read, update, create ]}]) {
+  id: ID!
+  title: String!
+  description: String
+  Group: Group @connection (name:"TaskGroup")
+  assigned_user: User @connection (name:"UserTask")
+  comments: [Comment] @connection (name:"TaskComment")
+  assign_status: Boolean
+  isComplete: Boolean
+  completeBy: String!
+}
+
+type Comment @model @auth(rules: [{ allow: owner }, { allow: private, operations: [read] }]){
+  id: ID!
+  description: String!
+  Task: Task @connection (name:"TaskComment")
+}
+
+
