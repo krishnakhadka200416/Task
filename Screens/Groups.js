@@ -13,24 +13,17 @@ import {useEffect, useState} from "react";
 const Groups = (props) => {
   const {navigation} = props;
   const [groups, setGroups] = useState([]);
-  const [userId, setUserId] = useState('');
-  
-  useEffect(() => {
-    const fetchUser = async() =>{
-    const userid =  await Auth.currentAuthenticatedUser();
-    console.log(userid.attributes.sub);
-    setUserId(userid.attributes.sub);
-    } 
-    fetchUser();
-  },[])
-  
-  useEffect(() => {
  
+
+  
+  useEffect(() => {
+    
     const fetchGroups = async () => {
       try {
+        const userid =  await Auth.currentAuthenticatedUser();
         const usersData = await API.graphql(
           graphqlOperation(
-            listGroups, {filter: {created_by: {eq: userId}}}
+            listGroups, {filter: {created_by: {eq: userid.attributes.sub}}}
           )
         )
      
@@ -42,6 +35,7 @@ const Groups = (props) => {
     }
     fetchGroups();
   }, [])
+
   return (
     <View style={styles.container}>
          <ScrollView >
