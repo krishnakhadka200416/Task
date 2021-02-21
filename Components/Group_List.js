@@ -10,7 +10,7 @@ const Item = ({ title }) => (
   
 const Group_List = (props) => {
     const renderItem = ({ item }) => (
-        <Item title={item.title} />
+        <Item title={item.group_name} />
       );
   return (
         <FlatList

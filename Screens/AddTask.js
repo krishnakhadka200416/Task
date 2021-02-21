@@ -9,9 +9,7 @@ const AddTask = () => {
   return (
     <View size={styles.container} >
         <Text>Add Task</Text>
-        <TextInput value={"Enter Task Title"} > </TextInput>
-        <TextInput value={"Enter Task Description"} > </TextInput>
-        <TextInput value={"Enter Task Deadline"} > </TextInput>
+       
     </View>
   );
 }

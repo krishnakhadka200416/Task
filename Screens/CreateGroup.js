@@ -1,5 +1,5 @@
-import { API, graphqlOperation } from 'aws-amplify';
-import React, { useState } from 'react';
+import { API, graphqlOperation, Auth } from 'aws-amplify';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text,TextInput, Button, TouchableOpacity } from 'react-native';
 import AppButton from '../Components/AppButton';
 import { createGroup }  from '../src/graphql/mutations';
@@ -9,14 +9,18 @@ const CreateGroup = (props) => {
   const[groupName, setGroupName] = useState('New Group'); 
   const [userId, setUserId] = useState('');
   const {navigation} = props;
+ 
+useEffect(() => {const fetchUser = async() =>{
+    const userid =  await Auth.currentAuthenticatedUser();
+    console.log(userid.attributes.sub);
+    setUserId(userid.attributes.sub);
+}
+fetchUser();
+  },[])
 
   const createGroupfun = async() =>{
-    try{
-      const fetchUser = async() =>{
-        const userid =  await Auth.currentAuthenticatedUser({ bypassCache: true });
-        setUserId(userid.attributes.sub);
-    }
-    fetchUser();
+    try{     
+    
       const newGroup = await API.graphql(
         graphqlOperation(
           createGroup,{
@@ -27,7 +31,7 @@ const CreateGroup = (props) => {
           }
         )
       )
-      navigation.navigate('Router');
+      navigation.navigate('Task');
     }
     catch(e){
       console.log(e)

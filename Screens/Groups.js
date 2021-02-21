@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, ScrollView, StyleSheet, Text, Button, TouchableOpacity } from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+
 import Group_List from '../Components/Group_List';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { API, graphqlOperation, Auth } from 'aws-amplify';
 import { listGroups }  from '../src/graphql/queries';
 import {useEffect, useState} from "react";
 
@@ -11,16 +12,20 @@ import {useEffect, useState} from "react";
 
 const Groups = (props) => {
   const {navigation} = props;
-  const [gropus, setGroups] = useState([]);
+  const [groups, setGroups] = useState([]);
   const [userId, setUserId] = useState('');
   
   useEffect(() => {
     const fetchUser = async() =>{
-        const userid =  await Auth.currentAuthenticatedUser({ bypassCache: true });
-        setUserId(userid.attributes.sub);
-    }
-
+    const userid =  await Auth.currentAuthenticatedUser();
+    console.log(userid.attributes.sub);
+    setUserId(userid.attributes.sub);
+    } 
     fetchUser();
+  },[])
+  
+  useEffect(() => {
+ 
     const fetchGroups = async () => {
       try {
         const usersData = await API.graphql(
@@ -28,8 +33,8 @@ const Groups = (props) => {
             listGroups, {filter: {created_by: {eq: userId}}}
           )
         )
-        console.log(usersData);
-        setGroups(usersData.data.listTasks.items);
+     
+        setGroups(usersData.data.listGroups.items);
       
       } catch (e) {
         console.log(e);

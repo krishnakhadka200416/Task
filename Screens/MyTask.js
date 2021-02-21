@@ -29,7 +29,7 @@ const MyTask =(props) => {
             listTasks, {filter: {assigned_to: {eq: userId}}}
           )
         )
-        console.log(usersData);
+        
         setTasks(usersData.data.listTasks.items);
       
       } catch (e) {
