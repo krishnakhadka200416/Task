@@ -12,21 +12,16 @@ import {useEffect, useState} from "react";
 const MyTask =(props) => {
   const {navigation} = props;
   const [tasks, setTasks] = useState([]);
-  const [userId, setUserId] = useState('');
-  
+   
   
   useEffect(() => {
-    const fetchUser = async() =>{
-        const userid =  await Auth.currentAuthenticatedUser({ bypassCache: true });
-        setUserId(userid.attributes.sub);
-    }
-
-    fetchUser();
+   
     const fetchTasks = async () => {
       try {
+        const userid =  await Auth.currentAuthenticatedUser();
         const usersData = await API.graphql(
           graphqlOperation(
-            listTasks, {filter: {assigned_to: {eq: userId}}}
+            listTasks, {filter: {assigned_to: {eq: userid.attributes.sub}}}
           )
         )
         
