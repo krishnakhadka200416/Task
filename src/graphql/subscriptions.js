@@ -13,6 +13,7 @@ export const onCreateUser = /* GraphQL */ `
           title
           description
           assigned_by
+          assigned_to
           assign_status
           isComplete
           completeBy
@@ -49,6 +50,7 @@ export const onUpdateUser = /* GraphQL */ `
           title
           description
           assigned_by
+          assigned_to
           assign_status
           isComplete
           completeBy
@@ -85,6 +87,7 @@ export const onDeleteUser = /* GraphQL */ `
           title
           description
           assigned_by
+          assigned_to
           assign_status
           isComplete
           completeBy
@@ -114,6 +117,7 @@ export const onCreateGroup = /* GraphQL */ `
     onCreateGroup {
       id
       group_name
+      created_by
       user {
         items {
           id
@@ -129,6 +133,7 @@ export const onCreateGroup = /* GraphQL */ `
           title
           description
           assigned_by
+          assigned_to
           assign_status
           isComplete
           completeBy
@@ -149,6 +154,7 @@ export const onUpdateGroup = /* GraphQL */ `
     onUpdateGroup {
       id
       group_name
+      created_by
       user {
         items {
           id
@@ -164,6 +170,7 @@ export const onUpdateGroup = /* GraphQL */ `
           title
           description
           assigned_by
+          assigned_to
           assign_status
           isComplete
           completeBy
@@ -184,6 +191,7 @@ export const onDeleteGroup = /* GraphQL */ `
     onDeleteGroup {
       id
       group_name
+      created_by
       user {
         items {
           id
@@ -199,6 +207,7 @@ export const onDeleteGroup = /* GraphQL */ `
           title
           description
           assigned_by
+          assigned_to
           assign_status
           isComplete
           completeBy
@@ -235,6 +244,7 @@ export const onCreateUserGroups = /* GraphQL */ `
       group {
         id
         group_name
+        created_by
         user {
           nextToken
         }
@@ -272,6 +282,7 @@ export const onUpdateUserGroups = /* GraphQL */ `
       group {
         id
         group_name
+        created_by
         user {
           nextToken
         }
@@ -309,6 +320,7 @@ export const onDeleteUserGroups = /* GraphQL */ `
       group {
         id
         group_name
+        created_by
         user {
           nextToken
         }
@@ -334,6 +346,7 @@ export const onCreateTask = /* GraphQL */ `
       Group {
         id
         group_name
+        created_by
         user {
           nextToken
         }
@@ -359,6 +372,7 @@ export const onCreateTask = /* GraphQL */ `
         owner
       }
       assigned_by
+      assigned_to
       comments {
         items {
           id
@@ -387,6 +401,7 @@ export const onUpdateTask = /* GraphQL */ `
       Group {
         id
         group_name
+        created_by
         user {
           nextToken
         }
@@ -412,6 +427,7 @@ export const onUpdateTask = /* GraphQL */ `
         owner
       }
       assigned_by
+      assigned_to
       comments {
         items {
           id
@@ -440,6 +456,7 @@ export const onDeleteTask = /* GraphQL */ `
       Group {
         id
         group_name
+        created_by
         user {
           nextToken
         }
@@ -465,6 +482,7 @@ export const onDeleteTask = /* GraphQL */ `
         owner
       }
       assigned_by
+      assigned_to
       comments {
         items {
           id
@@ -496,6 +514,7 @@ export const onCreateComment = /* GraphQL */ `
         Group {
           id
           group_name
+          created_by
           createdAt
           updatedAt
           owner
@@ -509,6 +528,7 @@ export const onCreateComment = /* GraphQL */ `
           owner
         }
         assigned_by
+        assigned_to
         comments {
           nextToken
         }
@@ -537,6 +557,7 @@ export const onUpdateComment = /* GraphQL */ `
         Group {
           id
           group_name
+          created_by
           createdAt
           updatedAt
           owner
@@ -550,6 +571,7 @@ export const onUpdateComment = /* GraphQL */ `
           owner
         }
         assigned_by
+        assigned_to
         comments {
           nextToken
         }
@@ -578,6 +600,7 @@ export const onDeleteComment = /* GraphQL */ `
         Group {
           id
           group_name
+          created_by
           createdAt
           updatedAt
           owner
@@ -591,6 +614,7 @@ export const onDeleteComment = /* GraphQL */ `
           owner
         }
         assigned_by
+        assigned_to
         comments {
           nextToken
         }

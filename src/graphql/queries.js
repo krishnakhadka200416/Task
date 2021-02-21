@@ -13,6 +13,7 @@ export const getUser = /* GraphQL */ `
           title
           description
           assigned_by
+          assigned_to
           assign_status
           isComplete
           completeBy
@@ -67,6 +68,7 @@ export const getGroup = /* GraphQL */ `
     getGroup(id: $id) {
       id
       group_name
+      created_by
       user {
         items {
           id
@@ -82,6 +84,7 @@ export const getGroup = /* GraphQL */ `
           title
           description
           assigned_by
+          assigned_to
           assign_status
           isComplete
           completeBy
@@ -107,6 +110,7 @@ export const listGroups = /* GraphQL */ `
       items {
         id
         group_name
+        created_by
         user {
           nextToken
         }
@@ -130,6 +134,7 @@ export const getTask = /* GraphQL */ `
       Group {
         id
         group_name
+        created_by
         user {
           nextToken
         }
@@ -155,6 +160,7 @@ export const getTask = /* GraphQL */ `
         owner
       }
       assigned_by
+      assigned_to
       comments {
         items {
           id
@@ -188,6 +194,7 @@ export const listTasks = /* GraphQL */ `
         Group {
           id
           group_name
+          created_by
           createdAt
           updatedAt
           owner
@@ -201,6 +208,7 @@ export const listTasks = /* GraphQL */ `
           owner
         }
         assigned_by
+        assigned_to
         comments {
           nextToken
         }
@@ -227,6 +235,7 @@ export const getComment = /* GraphQL */ `
         Group {
           id
           group_name
+          created_by
           createdAt
           updatedAt
           owner
@@ -240,6 +249,7 @@ export const getComment = /* GraphQL */ `
           owner
         }
         assigned_by
+        assigned_to
         comments {
           nextToken
         }
@@ -271,6 +281,7 @@ export const listComments = /* GraphQL */ `
           title
           description
           assigned_by
+          assigned_to
           assign_status
           isComplete
           completeBy

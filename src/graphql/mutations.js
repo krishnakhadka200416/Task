@@ -16,6 +16,7 @@ export const createUser = /* GraphQL */ `
           title
           description
           assigned_by
+          assigned_to
           assign_status
           isComplete
           completeBy
@@ -55,6 +56,7 @@ export const updateUser = /* GraphQL */ `
           title
           description
           assigned_by
+          assigned_to
           assign_status
           isComplete
           completeBy
@@ -94,6 +96,7 @@ export const deleteUser = /* GraphQL */ `
           title
           description
           assigned_by
+          assigned_to
           assign_status
           isComplete
           completeBy
@@ -126,6 +129,7 @@ export const createGroup = /* GraphQL */ `
     createGroup(input: $input, condition: $condition) {
       id
       group_name
+      created_by
       user {
         items {
           id
@@ -141,6 +145,7 @@ export const createGroup = /* GraphQL */ `
           title
           description
           assigned_by
+          assigned_to
           assign_status
           isComplete
           completeBy
@@ -164,6 +169,7 @@ export const updateGroup = /* GraphQL */ `
     updateGroup(input: $input, condition: $condition) {
       id
       group_name
+      created_by
       user {
         items {
           id
@@ -179,6 +185,7 @@ export const updateGroup = /* GraphQL */ `
           title
           description
           assigned_by
+          assigned_to
           assign_status
           isComplete
           completeBy
@@ -202,6 +209,7 @@ export const deleteGroup = /* GraphQL */ `
     deleteGroup(input: $input, condition: $condition) {
       id
       group_name
+      created_by
       user {
         items {
           id
@@ -217,6 +225,7 @@ export const deleteGroup = /* GraphQL */ `
           title
           description
           assigned_by
+          assigned_to
           assign_status
           isComplete
           completeBy
@@ -256,6 +265,7 @@ export const createUserGroups = /* GraphQL */ `
       group {
         id
         group_name
+        created_by
         user {
           nextToken
         }
@@ -296,6 +306,7 @@ export const updateUserGroups = /* GraphQL */ `
       group {
         id
         group_name
+        created_by
         user {
           nextToken
         }
@@ -336,6 +347,7 @@ export const deleteUserGroups = /* GraphQL */ `
       group {
         id
         group_name
+        created_by
         user {
           nextToken
         }
@@ -364,6 +376,7 @@ export const createTask = /* GraphQL */ `
       Group {
         id
         group_name
+        created_by
         user {
           nextToken
         }
@@ -389,6 +402,7 @@ export const createTask = /* GraphQL */ `
         owner
       }
       assigned_by
+      assigned_to
       comments {
         items {
           id
@@ -420,6 +434,7 @@ export const updateTask = /* GraphQL */ `
       Group {
         id
         group_name
+        created_by
         user {
           nextToken
         }
@@ -445,6 +460,7 @@ export const updateTask = /* GraphQL */ `
         owner
       }
       assigned_by
+      assigned_to
       comments {
         items {
           id
@@ -476,6 +492,7 @@ export const deleteTask = /* GraphQL */ `
       Group {
         id
         group_name
+        created_by
         user {
           nextToken
         }
@@ -501,6 +518,7 @@ export const deleteTask = /* GraphQL */ `
         owner
       }
       assigned_by
+      assigned_to
       comments {
         items {
           id
@@ -535,6 +553,7 @@ export const createComment = /* GraphQL */ `
         Group {
           id
           group_name
+          created_by
           createdAt
           updatedAt
           owner
@@ -548,6 +567,7 @@ export const createComment = /* GraphQL */ `
           owner
         }
         assigned_by
+        assigned_to
         comments {
           nextToken
         }
@@ -579,6 +599,7 @@ export const updateComment = /* GraphQL */ `
         Group {
           id
           group_name
+          created_by
           createdAt
           updatedAt
           owner
@@ -592,6 +613,7 @@ export const updateComment = /* GraphQL */ `
           owner
         }
         assigned_by
+        assigned_to
         comments {
           nextToken
         }
@@ -623,6 +645,7 @@ export const deleteComment = /* GraphQL */ `
         Group {
           id
           group_name
+          created_by
           createdAt
           updatedAt
           owner
@@ -636,6 +659,7 @@ export const deleteComment = /* GraphQL */ `
           owner
         }
         assigned_by
+        assigned_to
         comments {
           nextToken
         }

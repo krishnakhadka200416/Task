@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import Router from './Router';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -11,8 +11,16 @@ const NavContainer = (props) => {
     <NavigationContainer>
          
          <Stack.Navigator>
-         <Stack.Screen name="Task" component={Router} />
-         <Stack.Screen name="AddTask" component={AddTask} />
+         <Stack.Screen 
+         name="Task"
+          component={Router}
+          options={{
+            title: 'Tasked',
+          }}
+         
+          />
+         <Stack.Screen name="AddTask" component={AddTask}  
+         />
          <Stack.Screen name="CreateGroup" component={CreateGroup} />
          </Stack.Navigator>
       

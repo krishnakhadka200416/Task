@@ -4,31 +4,43 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Group_List from '../Components/Group_List';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { listGroups }  from '../src/graphql/queries';
+import {useEffect, useState} from "react";
 
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba1',
-    title: 'Group 1',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f631',
-    title: 'Group 2',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d721',
-    title: 'Group 3',
-  },
- 
-
-]; 
 
 const Groups = (props) => {
   const {navigation} = props;
+  const [gropus, setGroups] = useState([]);
+  const [userId, setUserId] = useState('');
+  
+  useEffect(() => {
+    const fetchUser = async() =>{
+        const userid =  await Auth.currentAuthenticatedUser({ bypassCache: true });
+        setUserId(userid.attributes.sub);
+    }
+
+    fetchUser();
+    const fetchGroups = async () => {
+      try {
+        const usersData = await API.graphql(
+          graphqlOperation(
+            listGroups, {filter: {created_by: {eq: userId}}}
+          )
+        )
+        console.log(usersData);
+        setGroups(usersData.data.listTasks.items);
+      
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    fetchGroups();
+  }, [])
   return (
     <View style={styles.container}>
          <ScrollView >
-        <Group_List Data = {DATA}/>
+        <Group_List Data = {groups}/>
             
         </ScrollView>
 
