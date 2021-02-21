@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import { listGroups }  from '../src/graphql/queries';
 import {useEffect, useState} from "react";
+import { onCreateGroup } from '../src/graphql/subscriptions';
 
 
 
@@ -15,25 +16,38 @@ const Groups = (props) => {
   const [groups, setGroups] = useState([]);
  
 
-  
-  useEffect(() => {
-    
-    const fetchGroups = async () => {
-      try {
-        const userid =  await Auth.currentAuthenticatedUser();
-        const usersData = await API.graphql(
-          graphqlOperation(
-            listGroups, {filter: {created_by: {eq: userid.attributes.sub}}}
-          )
+  const fetchGroups = async () => {
+    try {
+      const userid =  await Auth.currentAuthenticatedUser();
+      const usersData = await API.graphql(
+        graphqlOperation(
+          listGroups, {filter: {created_by: {eq: userid.attributes.sub}}}
         )
-     
-        setGroups(usersData.data.listGroups.items);
-      
-      } catch (e) {
-        console.log(e);
-      }
+      )
+   
+      setGroups(usersData.data.listGroups.items);
+    
+    } catch (e) {
+      console.log(e);
     }
+  }
+  useEffect(() => {   
     fetchGroups();
+  }, [])
+  
+  useEffect(() =>{
+    const subscription = API.graphql(
+      graphqlOperation(onCreateGroup)
+      ).subscribe({
+        next: (data) =>{
+          const newGroup = data.value.data.onCreateTask;
+          console.log("new group created");
+          console.log(newGroup);
+        
+        fetchGroups();
+      }
+      });
+    return () => subscription.unsubscribe();
   }, [])
 
   return (

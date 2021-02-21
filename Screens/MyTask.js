@@ -6,6 +6,7 @@ import Task_list from '../Components/Task_list';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { listTasks }  from '../src/graphql/queries';
+import { onCreateTask }  from '../src/graphql/subscriptions';
 import {useEffect, useState} from "react";
 
 
@@ -13,25 +14,38 @@ const MyTask =(props) => {
   const {navigation} = props;
   const [tasks, setTasks] = useState([]);
    
-  
-  useEffect(() => {
-   
-    const fetchTasks = async () => {
-      try {
-        const userid =  await Auth.currentAuthenticatedUser();
-        const usersData = await API.graphql(
-          graphqlOperation(
-            listTasks, {filter: {assigned_to: {eq: userid.attributes.sub}}}
-          )
+  const fetchTasks = async () => {
+    try {
+      const userid =  await Auth.currentAuthenticatedUser();
+      const usersData = await API.graphql(
+        graphqlOperation(
+          listTasks, {filter: {assigned_to: {eq: userid.attributes.sub}}}
         )
-        
-        setTasks(usersData.data.listTasks.items);
+      )
       
-      } catch (e) {
-        console.log(e);
-      }
+      setTasks(usersData.data.listTasks.items);
+    
+    } catch (e) {
+      console.log(e);
     }
-    fetchTasks();
+  }
+  useEffect(() => {
+     fetchTasks();
+  }, [])
+
+  useEffect(() =>{
+    const subscription = API.graphql(
+      graphqlOperation(onCreateTask)
+      ).subscribe({
+        next: (data) =>{
+          const newTask = data.value.data.onCreateTask;
+          console.log("new task created");
+          console.log(newTask);
+        
+        fetchTasks();
+      }
+      });
+    return () => subscription.unsubscribe();
   }, [])
  
   return (
